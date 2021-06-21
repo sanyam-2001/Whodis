@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Montez');
+@import url("https://fonts.googleapis.com/css?family=Francois+One");
+.profileContainer{
+    position: absolute;
+    right:15%;
+    top:40%;
+    width:25%;
+
+}
+.picture{
+    background-size:cover;
+    background-position: center;
+    position:relative;
+}
+.blockquote{
+  display:block;
+  background: #fff;
+  padding: 15px 20px 15px 45px;
+  margin: 0 0 20px;
+  position: relative;
+  margin-top: 6px;
+  margin-bottom:6px;
+  font-family: Georgia, serif;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #666;
+
+  /*Box Shadow - (Optional)*/
+  -moz-box-shadow: 2px 2px 15px #ccc;
+  -webkit-box-shadow: 2px 2px 15px #ccc;
+  box-shadow: 2px 2px 15px #ccc;
+
+  /*Borders - (Optional)*/
+  border-left-style: solid;
+  border-left-width: 15px;
+  border-right-style: solid;
+  border-right-width: 2px;    
+}
+
+.blockquote::before{  
+  /*Font*/
+  font-family: Georgia, serif;
+  font-size: 60px;
+  font-weight: bold;
+  color: #999;
+  
+  /*Positioning*/
+  position: absolute;
+  left: 10px;
+  top:5px;
+  
+}
+
+.blockquote::after{
+  /*Reset to make sure*/
+  content: "";
+}
+
+  /*Default Color Palette*/
+.blockquote{ 
+  border-left-color: #656d77;
+  border-right-color: #434a53;  
+}
+
+
+@media only screen and (max-width: 1000px){
+    .profileContainer{
+        position: relative;
+        width:90%;
+        left: 0;
+        margin:auto;
+        margin-top: 5%;
+    }
+}
+
+
+

@@ -1,0 +1,35 @@
+.drawerImage{
+    height: 30vh;
+    width: 100%;
+    background-size: cover;
+    color: white ;
+    position: relative;
+}
+.centerPlay{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left:10%
+}
+.afterHover, .afterHoverRed{
+    position:relative
+}
+.afterHover::after, .afterHoverRed::after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:100%;
+    width:5px;
+    display:none;
+}
+.afterHover::after{
+    background-color:rgb(64, 147, 255)
+}
+.afterHoverRed::after{
+    background-color:rgb(255, 64, 64)
+}
+
+.afterHover:hover::after, .afterHoverRed:hover::after{
+    display: block;
+}
