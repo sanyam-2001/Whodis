@@ -7,7 +7,7 @@ const signupRoute = require('./Routes/signupRoute');
 const loginRoute = require('./Routes/loginRoute');
 const userRoute = require('./Routes/userRoutes')
 const coverRoute = require('./Routes/coverRoutes')
-
+const dpRoute = require('./Routes/dpRoute')
 mongoose.connect(process.env.DBURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false }, () => {
     console.log("Connected to Whodis DB!")
 });
@@ -29,5 +29,6 @@ app.use('/', signupRoute);
 app.use('/', loginRoute);
 app.use('/', userRoute);
 app.use('/', coverRoute);
+app.use('/', dpRoute);
 
 app.listen(process.env.PORT || 5000);

@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Hero from '../../Components/HomeComponents/Hero/Hero'
 import Drawer from '../../Components/HomeComponents/Drawer/Drawer'
 import ProfilePanel from '../../Components/HomeComponents/ProfilePanel/ProfilePanel';
-import profileImage from '../../dp.jpg'
-import JWTGET from '../../Requests/Gets'
+import JWTGET from '../../Requests/Gets';
+import { Redirect } from 'react-router-dom'
 const Home = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [user, setUser] = useState({})
     const [location, setLocation] = useState({})
-    const [coverImage, setCoverImage] = useState(null)
+    const [coverImage, setCoverImage] = useState(null);
+    const [dp, setDp] = useState(null);
     const [isCenter, setisCenter] = useState(true);
     useEffect(() => {
         JWTGET('/userDetails')
@@ -23,21 +24,30 @@ const Home = () => {
                     setisCenter(res.isCenter)
                 }
             })
+        JWTGET('/dp')
+            .then(res => {
+                if (res.src) {
+                    setDp(res.src)
+                }
+            })
 
     }, []);
-
+    if (!localStorage.getItem('JWTTOKEN')) {
+        return <Redirect to="/login" />
+    }
     return (
         <div>
             <Drawer
                 drawerOpen={drawerOpen}
                 setDrawerOpen={setDrawerOpen}
                 backgroundImage={coverImage}
-                profileImage={profileImage}
+                profileImage={dp}
             />
             <Hero
                 backgroundImage={coverImage}
                 setBackgroundImage={setCoverImage}
-                profileImage={profileImage}
+                profileImage={dp}
+                setDp={setDp}
                 name={`${user.firstName} ${user.lastName}`}
                 location={`${location.state}, ${location.country}`}
                 setDrawerOpen={setDrawerOpen}
@@ -45,7 +55,8 @@ const Home = () => {
                 setisCenter={setisCenter}
             />
             <ProfilePanel
-                profileImage={profileImage}
+                profileImage={dp}
+                setDp={setDp}
                 about={user.about}
             />
         </div>

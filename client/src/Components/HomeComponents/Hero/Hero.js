@@ -7,6 +7,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import PublishIcon from '@material-ui/icons/Publish';
 import PhotoSizeSelectLargeIcon from '@material-ui/icons/PhotoSizeSelectLarge';
 import JWTGET from '../../../Requests/Gets';
+import { Button } from '@material-ui/core';
 import { ToastContainer, toast } from 'react-toastify';
 
 
@@ -80,6 +81,9 @@ const Hero = (props) => {
                     </Fab>
                 </div>
 
+            </div>
+            <div style={{ position: 'absolute', bottom: '5%', left: '5%' }}>
+                <Button variant="contained">Edit Profile</Button>
             </div>
         </div>
     );

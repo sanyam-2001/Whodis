@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
@@ -15,6 +15,7 @@ import styles from './Drawer.module.css'
 import SettingsIcon from '@material-ui/icons/Settings';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { Redirect } from 'react-router-dom'
 const useStyles = makeStyles({
     list: {
         width: 280,
@@ -26,7 +27,7 @@ const useStyles = makeStyles({
 
 function Drawer(props) {
     const classes = useStyles();
-
+    const [signedOut, setSignedOut] = useState(localStorage.getItem('JWTTOKEN'))
 
     const list = (anchor) => (
         <div
@@ -82,15 +83,18 @@ function Drawer(props) {
                     <ListItemIcon><VpnKeyIcon /></ListItemIcon>
                     <ListItemText primary={"Change Password"} />
                 </ListItem>
-                <ListItem button className={styles.afterHoverRed} >
+                <ListItem button className={styles.afterHoverRed} onClick={() => { localStorage.removeItem('JWTTOKEN'); setSignedOut(false) }} >
                     <ListItemIcon><ExitToAppIcon /></ListItemIcon>
                     <ListItemText primary={"Sign Out"} />
                 </ListItem>
 
             </List>
-        </div>
+        </div >
     );
 
+    if (!signedOut) {
+        return <Redirect to="/login" />
+    }
     return (
         <div>
 
