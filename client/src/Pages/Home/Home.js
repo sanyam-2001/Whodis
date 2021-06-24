@@ -42,6 +42,8 @@ const Home = () => {
                 setDrawerOpen={setDrawerOpen}
                 backgroundImage={coverImage}
                 profileImage={dp}
+                name={`${user.firstName} ${user.lastName}`}
+                email={user.email}
             />
             <Hero
                 backgroundImage={coverImage}

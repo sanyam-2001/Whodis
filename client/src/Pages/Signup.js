@@ -79,7 +79,8 @@ const Signup = () => {
                 state
             },
             relationshipStatus: 'Unset',
-            about: 'Tell People Something about Yourself. /n Hobbies, Interests or a Pretentious Quote... /n Noone Would Judge ;)'
+            about: 'Tell People Something about Yourself. \n Hobbies, Interests or a Pretentious Quote... \n Noone Would Judge ;)',
+            friends: []
         }
         const token = await POST('/signup', payload);
         if (token.JWTTOKEN) {

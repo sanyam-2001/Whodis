@@ -1,15 +1,40 @@
-require('dotenv').config();
-
+// require('dotenv').config();
 const express = require('express');
-const app = express();
 const mongoose = require('mongoose');
+const http = require('http');
+const socketio = require('socket.io')
 const signupRoute = require('./Routes/signupRoute');
 const loginRoute = require('./Routes/loginRoute');
-const userRoute = require('./Routes/userRoutes')
-const coverRoute = require('./Routes/coverRoutes')
-const dpRoute = require('./Routes/dpRoute')
+const userRoute = require('./Routes/userRoutes');
+const coverRoute = require('./Routes/coverRoutes');
+const dpRoute = require('./Routes/dpRoute');
+
+// SOCKET IMPORTS
+const findNewChatRoulette = require('./Socket/CRSocket/findNewChatRoulette')
+
 mongoose.connect(process.env.DBURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false }, () => {
     console.log("Connected to Whodis DB!")
+});
+
+const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
+
+
+io.on('connection', (socket) => {
+    console.log(`${socket.id} has Joined`)
+    socket.on('findNewChatRoulette', ({ JWTTOKEN }) => {
+        findNewChatRoulette(socket, JWTTOKEN, io);
+    });
+    socket.on('sendMessage', ({ roomID, message }) => {
+        const date = new Date(Date.now());
+        socket.to(roomID).emit('messageRecieved', {
+            time: `${date.getHours()}:${date.getMinutes()}`,
+            message
+        });
+    });
+
+    socket.on('disconnect', () => console.log(`${socket.id} has Left!`))
 });
 
 
@@ -31,4 +56,4 @@ app.use('/', userRoute);
 app.use('/', coverRoute);
 app.use('/', dpRoute);
 
-app.listen(process.env.PORT || 5000);
+server.listen(process.env.PORT || 5000);

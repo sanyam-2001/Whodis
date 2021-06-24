@@ -15,7 +15,7 @@ import styles from './Drawer.module.css'
 import SettingsIcon from '@material-ui/icons/Settings';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 const useStyles = makeStyles({
     list: {
         width: 280,
@@ -45,8 +45,8 @@ function Drawer(props) {
                             <ListItemText>
                                 <img src={props.profileImage} alt="DP" height="40px" width="40px" style={{ borderRadius: '50%' }} />
                             </ListItemText>
-                            <h3>Sanyam Bhaskar</h3>
-                            <h6>sanyambhaskar5@gmail.com</h6>
+                            <h3>{props.name}</h3>
+                            <h6>{props.email}</h6>
                         </div>
                     </ListItemText>
                 </ListItem>
@@ -54,10 +54,12 @@ function Drawer(props) {
             <Divider />
             <List>
 
-                <ListItem button className={styles.afterHover}>
-                    <ListItemIcon><PersonAddIcon /></ListItemIcon>
-                    <ListItemText primary={"Make Friends"} />
-                </ListItem>
+                <Link to="/chatRoulette" style={{ textDecoration: 'none', color: 'black' }}>
+                    <ListItem button className={styles.afterHover}>
+                        <ListItemIcon><PersonAddIcon /></ListItemIcon>
+                        <ListItemText primary={"Make Friends"} />
+                    </ListItem>
+                </Link>
                 <ListItem button className={styles.afterHover}>
                     <ListItemIcon><ChatIcon /></ListItemIcon>
                     <ListItemText primary={"Messages"} />
