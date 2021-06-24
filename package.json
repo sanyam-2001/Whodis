@@ -4,7 +4,11 @@
   "description": "Hybrid Social Media",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently -n 'server,client' -c 'blue,yellow' \"nodemon index\" \"cd client && npm start\""
+    "dev": "concurrently -n 'server,client' -c 'blue,yellow' \"nodemon index\" \"cd client && npm start\"",
+    "install-client": "cd client && npm install",
+    "build-client": "cd client && npm run build",
+    "start": "node index",
+    "heroku-postbuild": "npm run install-client && npm run build-client"
   },
   "author": "",
   "license": "ISC",

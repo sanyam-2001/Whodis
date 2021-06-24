@@ -1,4 +1,4 @@
-// require('dotenv').config();
+// require('dotenv).config();
 const express = require('express');
 const mongoose = require('mongoose');
 const http = require('http');
@@ -20,6 +20,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
+app.use(express.static('client/build'))
 
 io.on('connection', (socket) => {
     console.log(`${socket.id} has Joined`)
@@ -55,5 +56,7 @@ app.use('/', loginRoute);
 app.use('/', userRoute);
 app.use('/', coverRoute);
 app.use('/', dpRoute);
+
+
 
 server.listen(process.env.PORT || 5000);
