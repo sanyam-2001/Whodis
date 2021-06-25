@@ -53,17 +53,19 @@ app.get('/test', (req, res) => {
     res.json({ statusCode: 200 });
 })
 
-app.use(express.static(path.join(__dirname, 'client', 'build')));
 
-app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-});
 app.use('/', signupRoute);
 app.use('/', loginRoute);
 app.use('/', userRoute);
 app.use('/', coverRoute);
 app.use('/', dpRoute);
 
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+
+app.get('*', (req, res) => {
+    console.log(req)
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+});
 
 
 server.listen(process.env.PORT || 5000);
