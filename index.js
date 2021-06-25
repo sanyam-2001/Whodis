@@ -10,8 +10,8 @@ const coverRoute = require('./Routes/coverRoutes');
 const dpRoute = require('./Routes/dpRoute');
 const path = require('path');
 // SOCKET IMPORTS
-const findNewChatRoulette = require('./Socket/CRSocket/findNewChatRoulette')
-const destroyRoom = require('./Socket/CRSocket/destroyRoom')
+const findNewChatRoulette = require('./Socket/CRSocket/findNewChatRoulette');
+const destroyRoom = require('./Socket/CRSocket/destroyRoom');
 mongoose.connect(process.env.DBURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false }, () => {
     console.log("Connected to Whodis DB!")
 });
@@ -63,7 +63,6 @@ app.use('/', dpRoute);
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 app.get('*', (req, res) => {
-    console.log(req)
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 });
 

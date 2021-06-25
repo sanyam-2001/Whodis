@@ -133,7 +133,6 @@ const ChatRoulette = () => {
                 <div className={styles.innerModal}>
                     <h1 style={{ fontSize: '50px' }}>Loading</h1>
                     <LinearProgress />
-                    <h1>Waiting for a User to Join</h1>
                     <h1>Joining a Stranger</h1>
                 </div>
             </div>
