@@ -8,7 +8,7 @@ const loginRoute = require('./Routes/loginRoute');
 const userRoute = require('./Routes/userRoutes');
 const coverRoute = require('./Routes/coverRoutes');
 const dpRoute = require('./Routes/dpRoute');
-
+const path = require('path');
 // SOCKET IMPORTS
 const findNewChatRoulette = require('./Socket/CRSocket/findNewChatRoulette')
 const destroyRoom = require('./Socket/CRSocket/destroyRoom')
@@ -53,6 +53,9 @@ app.use(function (req, res, next) {
 app.get('/test', (req, res) => {
     res.json({ statusCode: 200 });
 })
+
+app.use(express.static(path.join(__dirname, 'client', 'build')));
+
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
 });
