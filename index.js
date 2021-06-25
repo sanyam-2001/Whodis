@@ -20,7 +20,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
-app.use(express.static('client/build'))
+//app.use(express.static('client/build'))
 
 io.on('connection', (socket) => {
     console.log(`${socket.id} has Joined`)
@@ -53,6 +53,9 @@ app.use(function (req, res, next) {
 app.get('/test', (req, res) => {
     res.json({ statusCode: 200 });
 })
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+});
 app.use('/', signupRoute);
 app.use('/', loginRoute);
 app.use('/', userRoute);
