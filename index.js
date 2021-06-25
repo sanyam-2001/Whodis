@@ -1,4 +1,4 @@
-// require('dotenv).config();
+//require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose');
 const http = require('http');
@@ -11,7 +11,7 @@ const dpRoute = require('./Routes/dpRoute');
 
 // SOCKET IMPORTS
 const findNewChatRoulette = require('./Socket/CRSocket/findNewChatRoulette')
-
+const destroyRoom = require('./Socket/CRSocket/destroyRoom')
 mongoose.connect(process.env.DBURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false }, () => {
     console.log("Connected to Whodis DB!")
 });
@@ -34,7 +34,9 @@ io.on('connection', (socket) => {
             message
         });
     });
-
+    socket.on('destroyRoom', async (roomID) => {
+        destroyRoom(io, roomID);
+    });
     socket.on('disconnect', () => console.log(`${socket.id} has Left!`))
 });
 

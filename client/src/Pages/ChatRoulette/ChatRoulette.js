@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -30,9 +30,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 const ChatRoulette = () => {
+    let chatRef = useRef(null);
     const isLoggedIn = localStorage.getItem('JWTTOKEN');
     const classes = useStyles();
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const [count, setCount] = useState(0);
     const [user, setUser] = useState({})
     const [coverImage, setCoverImage] = useState(null);
     const [dp, setDp] = useState(null);
@@ -73,16 +75,32 @@ const ChatRoulette = () => {
             console.log(roomDetails)
             if (roomDetails.user2) {
                 setOpen(false);
+                setInChat(true);
+                setMessages([{ sender: "SYSTEM", message: "STRANGER JOINED!" }]);
+                setCount(0);
+
             }
         });
         socket.on('messageRecieved', (obj) => {
-            setMessages((prev) => [...prev, { sender: "Stranger", time: obj.time, message: obj.message }])
+            setMessages((prev) => [...prev, { sender: "Stranger", time: obj.time, message: obj.message }]);
+            setCount(prev => prev + 1);
+
         });
+        socket.on('destroyRoom', async () => {
+            setInChat(false);
+            setMessages((prev) => [...prev, { sender: "SYSTEM", message: "CHAT ENDED" }]);
+            setCount(prev => prev + 1);
+
+        })
 
         return () => {
             socket.disconnect()
         }
     }, [])
+    useEffect(() => {
+        chatRef.current.scrollTop = chatRef.current.scrollHeight;
+    }, [count]);
+
 
     if (!isLoggedIn)
         return <Redirect to="/login" />
@@ -92,13 +110,19 @@ const ChatRoulette = () => {
             socket.emit('findNewChatRoulette', { JWTTOKEN: localStorage.getItem('JWTTOKEN') });
             setOpen(true);
         }
+        else {
+            socket.emit('destroyRoom', room.roomID);
+
+        }
     }
     const sendMessage = () => {
         if (message && room.roomID) {
             socket.emit('sendMessage', { roomID: room.roomID, message });
             const date = new Date(Date.now());
             setMessages((prev) => [...prev, { sender: "You", message: message, time: `${date.getHours()}:${date.getMinutes()}` }]);
+            setCount(prev => prev + 1);
             setMessage('');
+
         }
     }
 
@@ -138,7 +162,10 @@ const ChatRoulette = () => {
                     </AppBar>
                 </div>
             </div>
-            <div className={styles.messageContainer}>
+            <div style={{ marginTop: '20px', textAlign: 'right', width: '90%' }}>
+                <Button variant="outlined" color="primary">Add Friend</Button>
+            </div>
+            <div className={styles.messageContainer} style={{ overflowX: 'hidden', overflowY: 'scroll' }} ref={chatRef}>
                 {messageGroup}
             </div>
             <div className={styles.footInput}>
