@@ -20,7 +20,6 @@ const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
-//app.use(express.static('client/build'))
 
 io.on('connection', (socket) => {
     console.log(`${socket.id} has Joined`)
