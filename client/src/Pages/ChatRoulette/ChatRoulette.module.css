@@ -22,10 +22,10 @@
     border-radius: 10px;
 }
 .textAreaPanel{
-    width: 80%
+    flex:10;
 }
 .sendPanel, .escapePanel{
-    width: 7.5%
+    flex:2;
 }
 .modal{
     position:fixed;

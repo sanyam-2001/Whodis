@@ -219,7 +219,7 @@ const ChatRoulette = () => {
             </div>
             <div className={styles.footInput}>
                 <div className={styles.escapePanel}>
-                    <Button variant="contained" style={{ width: '100%', padding: '20px' }} onClick={handleEndNew}>{inChat ? "END" : "NEW"}</Button>
+                    <Button variant="contained" style={{ width: '100%', padding: '15px' }} onClick={handleEndNew}>{inChat ? "END" : "NEW"}</Button>
                 </div>
                 <div className={styles.textAreaPanel}>
                     <TextField
@@ -233,7 +233,7 @@ const ChatRoulette = () => {
                     />
                 </div>
                 <div className={styles.sendPanel}>
-                    <Button variant="contained" disabled={message ? false : true} style={{ width: '100%', padding: '20px' }} onClick={sendMessage} >Send</Button>
+                    <Button variant="contained" disabled={message ? false : true} style={{ width: '100%', padding: '15px' }} onClick={sendMessage} >Send</Button>
                 </div>
             </div>
         </div>
