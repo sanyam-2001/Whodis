@@ -17,6 +17,7 @@ import JWTGET from '../../Requests/Gets';
 import styles from './ChatRoulette.module.css'
 import socketIOClient from 'socket.io-client';
 import Message from '../../Components/MessageComponents/Message'
+
 const socket = socketIOClient('/');
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 const ChatRoulette = () => {
     let chatRef = useRef(null);
     const isLoggedIn = localStorage.getItem('JWTTOKEN');
+
     const classes = useStyles();
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [count, setCount] = useState(0);
@@ -41,6 +43,9 @@ const ChatRoulette = () => {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const [inChat, setInChat] = useState(false);
+    const [requestModal, setRequestModel] = useState(false);
+    const [friendRequestRecieved, setFriendRequestRecieved] = useState(false);
+    const [isFriend, setIsFriend] = useState(false);
     const [room, setRoom] = useState({
         user1: null,
         user1ID: null,
@@ -86,10 +91,33 @@ const ChatRoulette = () => {
             setCount(prev => prev + 1);
 
         });
+        socket.on('friendRequestRecieved', () => {
+            setRequestModel(true);
+            setFriendRequestRecieved(true);
+        });
+        socket.on('requestDeclined', () => {
+            setRequestModel(false);
+            setMessages((prev) => [...prev, { sender: "SYSTEM", message: "Request Declined!" }]);
+
+        })
+        socket.on('requestAccepted', () => {
+            setIsFriend(true);
+            setRequestModel(false);
+            setMessages((prev) => [...prev, { sender: "SYSTEM", message: "Request Accepted!" }]);
+
+        })
         socket.on('destroyRoom', async () => {
             setInChat(false);
             setMessages((prev) => [...prev, { sender: "SYSTEM", message: "CHAT ENDED" }]);
             setCount(prev => prev + 1);
+            setRoom({
+                user1: null,
+                user1ID: null,
+                user2: null,
+                user2ID: null,
+                roomID: null,
+                status: null
+            });
 
         })
 
@@ -102,8 +130,6 @@ const ChatRoulette = () => {
     }, [count]);
 
 
-    if (!isLoggedIn)
-        return <Redirect to="/login" />
 
     const handleEndNew = () => {
         if (!inChat) {
@@ -125,8 +151,18 @@ const ChatRoulette = () => {
 
         }
     }
+    const sendRequest = () => {
+        if (room.user2 && !isFriend) {
+            socket.emit('sendRequest', room.roomID);
+            setRequestModel(true);
+            setFriendRequestRecieved(false);
+        }
+    }
 
     const messageGroup = messages.map((m, i) => <Message time={m.time} message={m.message} sender={m.sender} key={i} />)
+    if (!isLoggedIn)
+        return <Redirect to="/login" />
+
     return (
         <div >
             <div className={styles.modal} style={{ display: open ? "flex" : 'none' }}>
@@ -135,6 +171,20 @@ const ChatRoulette = () => {
                     <LinearProgress />
                     <h1>Joining a Stranger</h1>
                 </div>
+            </div>
+            <div className={styles.modal} style={{ display: requestModal ? 'flex' : 'none' }}>
+                <div className={styles.innerModal} style={{ display: friendRequestRecieved ? "none" : 'block' }}>
+                    <h2>Friend Request Sent</h2>
+                </div>
+
+                <div className={styles.innerModal} style={{ display: friendRequestRecieved ? "block" : "none" }}>
+                    <h2>Friend Request Recieved</h2>
+                    <div style={{ margin: '8px', display: 'flex', justifyContent: 'space-around' }}>
+                        <Button variant="contained" style={{ backgroundColor: '#70deff' }} onClick={() => socket.emit('requestAccepted', room.roomID)}>Accept</Button>
+                        <Button variant="contained" style={{ backgroundColor: '#ff7085' }} onClick={() => socket.emit('requestDeclined', room.roomID)}>Decline</Button>
+                    </div>
+                </div>
+
             </div>
             <Drawer
                 drawerOpen={drawerOpen}
@@ -162,7 +212,7 @@ const ChatRoulette = () => {
                 </div>
             </div>
             <div style={{ marginTop: '20px', textAlign: 'right', width: '90%' }}>
-                <Button variant="outlined" color="primary">Add Friend</Button>
+                <Button variant="outlined" color="primary" onClick={sendRequest}>Add Friend</Button>
             </div>
             <div className={styles.messageContainer} style={{ overflowX: 'hidden', overflowY: 'scroll' }} ref={chatRef}>
                 {messageGroup}

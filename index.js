@@ -12,6 +12,10 @@ const path = require('path');
 // SOCKET IMPORTS
 const findNewChatRoulette = require('./Socket/CRSocket/findNewChatRoulette');
 const destroyRoom = require('./Socket/CRSocket/destroyRoom');
+const acceptRequest = require('./Socket/CRSocket/acceptRequest');
+const handleLeave = require('./Socket/CRSocket/handleLeave');
+
+
 mongoose.connect(process.env.DBURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false }, () => {
     console.log("Connected to Whodis DB!")
 });
@@ -22,7 +26,7 @@ const io = socketio(server);
 
 
 io.on('connection', (socket) => {
-    console.log(`${socket.id} has Joined`)
+    console.log(`${socket.id} has Joined`);
     socket.on('findNewChatRoulette', ({ JWTTOKEN }) => {
         findNewChatRoulette(socket, JWTTOKEN, io);
     });
@@ -33,10 +37,23 @@ io.on('connection', (socket) => {
             message
         });
     });
+    socket.on('sendRequest', (roomID) => {
+        socket.to(roomID).emit('friendRequestRecieved');
+    });
+    socket.on('requestDeclined', (roomID) => {
+        io.in(roomID).emit('requestDeclined');
+    });
+    socket.on('requestAccepted', (roomID) => {
+        acceptRequest(io, roomID);
+    });
+
     socket.on('destroyRoom', async (roomID) => {
         destroyRoom(io, roomID);
     });
-    socket.on('disconnect', () => console.log(`${socket.id} has Left!`))
+    socket.on('disconnect', () => {
+        console.log(`${socket.id} has Left!`)
+        handleLeave(socket, io);
+    })
 });
 
 
