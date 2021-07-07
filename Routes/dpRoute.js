@@ -38,5 +38,18 @@ router.get('/dp', AuthJWT, (req, res) => {
     })
 });
 
+router.get('/getDp/:id', (req, res) => {
+    dpModel.findOne({ userID: req.params.id }, (err, dp) => {
+        if (err) {
+            res.json({ code: 500, errCode: 500, message: 'Server Error!' });
+            return console.error(err);
+        }
+        if (!dp) { res.json({ src: null }) }
+        else {
+            let src = `data:${dp.img.contentType};base64,${dp.img.data.toString('base64')}`;
+            res.json({ src })
+        }
+    })
+});
 
 module.exports = router

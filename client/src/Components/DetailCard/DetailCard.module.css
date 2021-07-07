@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+.card{
+    width:90%;
+    margin:auto;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
+ }
+.card:hover .header{
+    margin-left: 30%;
+}
+.card:hover .footer{
+    margin-left:0%;
+}
+.header{
+    width:60%;
+    font-family: 'Big Shoulders Stencil Display', cursive;
+    font-size: 70px;
+    text-align: center;
+    transition: all 0.5s ease;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.footer{
+    width:60%;
+    font-family: 'Oswald', sans-serif;
+    font-size: 32px;
+    color: white;
+    text-align: center;
+    background-color:rgb(153, 153, 153);
+    margin-left: 30%;
+    transition: all 0.5s ease
+}
+.edit{
+    cursor:pointer;
+    transform: scale(1.1) translateX(-50%);
+}
+.edit:hover{
+    transform: scale(1.25) translateX(-50%);
+}
+
+@media only screen and (max-width: 768px){
+    .header{
+        font-size:40px;
+    }
+    .footer{
+        font-size: 16px;
+    }
+}

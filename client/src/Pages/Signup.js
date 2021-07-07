@@ -72,7 +72,7 @@ const Signup = () => {
             lastName,
             email,
             password,
-            selectedDate,
+            dateOfBirth: selectedDate,
             gender,
             location: {
                 country,
@@ -80,7 +80,9 @@ const Signup = () => {
             },
             relationshipStatus: 'Unset',
             about: 'Tell People Something about Yourself. \n Hobbies, Interests or a Pretentious Quote... \n Noone Would Judge ;)',
-            friends: []
+            friends: [],
+            requestsRecieved: 0,
+            requestsSent: 0
         }
         const token = await POST('/signup', payload);
         if (token.JWTTOKEN) {

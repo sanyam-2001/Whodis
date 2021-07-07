@@ -94,6 +94,7 @@ const ChatRoulette = () => {
         socket.on('friendRequestRecieved', () => {
             setRequestModel(true);
             setFriendRequestRecieved(true);
+            JWTGET('incrementRecieved');
         });
         socket.on('requestDeclined', () => {
             setRequestModel(false);
@@ -156,6 +157,7 @@ const ChatRoulette = () => {
             socket.emit('sendRequest', room.roomID);
             setRequestModel(true);
             setFriendRequestRecieved(false);
+            JWTGET('incrementSent');
         }
     }
 

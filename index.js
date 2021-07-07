@@ -7,6 +7,7 @@ const signupRoute = require('./Routes/signupRoute');
 const loginRoute = require('./Routes/loginRoute');
 const userRoute = require('./Routes/userRoutes');
 const coverRoute = require('./Routes/coverRoutes');
+const friendRoute = require('./Routes/friendRoutes')
 const dpRoute = require('./Routes/dpRoute');
 const path = require('path');
 // SOCKET IMPORTS
@@ -76,6 +77,7 @@ app.use('/', loginRoute);
 app.use('/', userRoute);
 app.use('/', coverRoute);
 app.use('/', dpRoute);
+app.use('/', friendRoute);
 
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 

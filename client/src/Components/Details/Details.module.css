@@ -1,0 +1,11 @@
+.mainContainer{
+    width: 60%;
+    margin-top: 5%;
+}
+
+
+@media only screen and (max-width: 1000px){
+    .mainContainer{
+        width:100%
+    }
+}
