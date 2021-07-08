@@ -6,7 +6,6 @@ import JWTGET from '../../Requests/Gets';
 import Details from '../../Components/Details/Details';
 import Updater from '../../Components/UpdateComponent/Updater';
 import { Redirect } from 'react-router-dom'
-import FriendPanel from './../../Components/FriendPanel/FriendPanel';
 const Home = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [user, setUser] = useState({})
@@ -81,10 +80,7 @@ const Home = () => {
                 type={updaterType}
                 setUser={setUser}
             />
-            <FriendPanel
-                friendList={friendList}
-                setFriendList={setFriendList}
-            />
+
         </div>
     );
 }

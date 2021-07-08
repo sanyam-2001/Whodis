@@ -60,10 +60,12 @@ function Drawer(props) {
                         <ListItemText primary={"Make Friends"} />
                     </ListItem>
                 </Link>
-                <ListItem button className={styles.afterHover}>
-                    <ListItemIcon><ChatIcon /></ListItemIcon>
-                    <ListItemText primary={"Messages"} />
-                </ListItem>
+                <Link to="/messaging" style={{ textDecoration: 'none', color: 'black' }}>
+                    <ListItem button className={styles.afterHover}>
+                        <ListItemIcon><ChatIcon /></ListItemIcon>
+                        <ListItemText primary={"Messages"} />
+                    </ListItem>
+                </Link>
                 <ListItem button className={styles.afterHover}>
                     <ListItemIcon><EqualizerIcon /></ListItemIcon>
                     <ListItemText primary={"Feed"} />

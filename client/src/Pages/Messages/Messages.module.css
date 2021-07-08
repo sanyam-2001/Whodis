@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+SC:wght@300&display=swap');
+.mainContainer{
+    position: absolute;
+    left: 50%;
+    margin-top:1.25%;
+    transform: translateX(-50%);
+    width:85%;
+    height:85%;
+    background-image:linear-gradient(rgb(12, 12, 12), rgb(3, 46, 48));
+    display:flex
+}
+.contactContainer{
+    height:100%;
+    flex:3;
+    border-right: 1px solid rgba(61, 61, 61, 0.377);
+}
+.chatBox{
+    background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('./bg_chat.png');
+    height:100%;
+    flex:7;
+}
+
+.identityBar{
+    background-color:rgb(42,47,50);
+    height:12.5%;
+    max-width:100%;
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+    padding-left:10px;
+    padding-right: 10px;
+    color:white
+}
+.searchContact{
+    max-width:100%;
+    height:7.5%;
+    background-color: rgb(19,28,33);
+    display:flex;
+    justify-content:center;
+    align-items: center;
+}
+.searchInput{
+    width:90%;
+    padding:6px;
+    padding-left: 20px;
+    border-radius: 20px;
+    outline:none;
+    border:none;
+    background-color: rgb(50,55,57);
+    color:white;
+    font-weight:bold;
+
+}
+.searchInput::placeholder{
+    color:rgb(92,96,97);
+    font-weight:bold;
+}
+.contactList{
+    height:80%;
+    width:100%;
+    position:relative
+}
