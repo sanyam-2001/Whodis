@@ -20,17 +20,19 @@
     flex:7;
 }
 
-.identityBar{
+.identityBar, .chatHeader{
     background-color:rgb(42,47,50);
     height:12.5%;
     max-width:100%;
     display:flex;
     justify-content:space-between;
     align-items: center;
-    padding-left:10px;
-    padding-right: 10px;
+    padding-left:20px;
+    padding-right: 20px;
     color:white
 }
+
+
 .searchContact{
     max-width:100%;
     height:7.5%;
@@ -59,4 +61,34 @@
     height:80%;
     width:100%;
     position:relative
+}
+.textContainerInput{
+    display:flex;
+    justify-content:space-around;
+    background-color: rgb(30,36,40);
+    height:12.5%;
+    align-items: center;
+
+}
+.textContainerInput input{
+    width:75%;
+    padding:16px;
+    border-radius:16px;
+    outline: none;
+    background-color: rgb(51,56,59);
+    border:none;
+    color:white;
+    font-size: 16px;
+}
+.stringifiedMessages{
+    max-height:75%;
+    overflow:hidden scroll;
+}
+.stringifiedMessages{
+    position:relative;
+    width:90%;
+    margin:auto
+}
+.stringifiedMessages::-webkit-scrollbar{
+    display:none
 }

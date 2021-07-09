@@ -19,19 +19,25 @@ const Home = () => {
     useEffect(() => {
         JWTGET('/userDetails')
             .then(res => {
+                if (!res) return localStorage.removeItem('JWTTOKEN')
                 setUser(res);
                 setLocation(res.location)
                 setFriendList(res.friends)
             });
         JWTGET('/coverImage')
             .then(res => {
+                if (!res) return localStorage.removeItem('JWTTOKEN')
+
                 if (res.src) {
+
                     setCoverImage(res.src);
                     setisCenter(res.isCenter)
                 }
             })
         JWTGET('/dp')
             .then(res => {
+                if (!res) return localStorage.removeItem('JWTTOKEN')
+
                 if (res.src) {
                     setDp(res.src)
                 }

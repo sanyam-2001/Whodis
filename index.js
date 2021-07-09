@@ -1,4 +1,4 @@
-require('dotenv').config()
+//require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose');
 const http = require('http');
@@ -10,12 +10,13 @@ const coverRoute = require('./Routes/coverRoutes');
 const friendRoute = require('./Routes/friendRoutes')
 const dpRoute = require('./Routes/dpRoute');
 const path = require('path');
+const messagingRoutes = require('./Routes/messagingRoutes')
 // SOCKET IMPORTS
 const findNewChatRoulette = require('./Socket/CRSocket/findNewChatRoulette');
 const destroyRoom = require('./Socket/CRSocket/destroyRoom');
 const acceptRequest = require('./Socket/CRSocket/acceptRequest');
 const handleLeave = require('./Socket/CRSocket/handleLeave');
-
+const sendMessage = require('./Socket/MSocket/sendMessage')
 
 mongoose.connect(process.env.DBURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false }, () => {
     console.log("Connected to Whodis DB!")
@@ -47,14 +48,23 @@ io.on('connection', (socket) => {
     socket.on('requestAccepted', (roomID) => {
         acceptRequest(io, roomID);
     });
-
     socket.on('destroyRoom', async (roomID) => {
         destroyRoom(io, roomID);
     });
     socket.on('disconnect', () => {
         console.log(`${socket.id} has Left!`)
         handleLeave(socket, io);
+    });
+
+
+    socket.on('joinConversation', ({ roomID, name }) => {
+        socket.join(roomID);
+        console.log(`${name} Joined ${roomID} Conversation!`)
+        socket.on('chatMessageSent', ({ messagePayload, thisRoom }) => {
+            sendMessage(socket, thisRoom, messagePayload);
+        })
     })
+
 });
 
 
@@ -78,6 +88,7 @@ app.use('/', userRoute);
 app.use('/', coverRoute);
 app.use('/', dpRoute);
 app.use('/', friendRoute);
+app.use('/', messagingRoutes);
 
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 

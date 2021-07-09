@@ -1,0 +1,6 @@
+.mainContainer{
+    background-color: rgb(19,28,33),
+}
+.mainContainer:hover{
+    background-color:rgb(50,55,57)
+}

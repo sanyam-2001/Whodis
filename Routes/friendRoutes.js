@@ -8,5 +8,6 @@ router.get('/removeFriend/:id', AuthJWT, async (req, res) => {
     await userModel.findByIdAndUpdate(user1, { "$pull": { "friends": user2 } });
     await userModel.findByIdAndUpdate(user2, { "$pull": { "friends": user1 } });
     res.json({ code: 200 })
-})
+});
+
 module.exports = router;

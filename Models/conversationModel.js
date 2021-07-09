@@ -4,9 +4,7 @@ const mongoose = require('mongoose');
 const conversationSchema = mongoose.Schema({
     conversationUID: { type: String },
     user1: { type: String },
-    username1: { type: String },
     user2: { type: String },
-    username2: { type: String },
     stringifiedMessages: { type: String }
 });
 

@@ -18,7 +18,6 @@ import styles from './ChatRoulette.module.css'
 import socketIOClient from 'socket.io-client';
 import Message from '../../Components/MessageComponents/Message'
 
-const socket = socketIOClient('/');
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -46,7 +45,9 @@ const ChatRoulette = () => {
     const [requestModal, setRequestModel] = useState(false);
     const [friendRequestRecieved, setFriendRequestRecieved] = useState(false);
     const [isFriend, setIsFriend] = useState(false);
+    const [socket, setSocket] = useState(null);
     const [room, setRoom] = useState({
+
         user1: null,
         user1ID: null,
         user2: null,
@@ -74,7 +75,10 @@ const ChatRoulette = () => {
             });
     }, []);
 
+
     useEffect(() => {
+        const socket = socketIOClient('/');
+        setSocket(socket);
         socket.on('joinedRoom', (roomDetails) => {
             setRoom(roomDetails);
             console.log(roomDetails)
