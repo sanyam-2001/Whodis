@@ -9,7 +9,8 @@
     "build-client": "cd client && npm run build",
     "start": "node index",
     "heroku-postbuild": "npm run install-client && npm run build-client",
-    "server": "nodemon index"
+    "server": "nodemon index",
+    "git-heroku-push": "git push origin master && git push heroku master"
   },
   "author": "",
   "license": "ISC",

@@ -17,6 +17,7 @@ import socketIOClient from 'socket.io-client';
 import AttachmentIcon from '@material-ui/icons/Attachment';
 import SendIcon from '@material-ui/icons/Send';
 import Text from './../../Components/Text/Text';
+import defaultImage from '../../default.jpg'
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -194,7 +195,7 @@ const Messages = () => {
                         :
                         <div style={{ height: '100%' }}>
                             <div className={styles.chatHeader}>
-                                <img src={getUserDetails(friendList, currentUser).dp} alt="userDP" style={{ height: '50px', width: '50px', borderRadius: '50%', objectFit: 'cover' }} />
+                                <img src={getUserDetails(friendList, currentUser).dp || defaultImage} alt="userDP" style={{ height: '50px', width: '50px', borderRadius: '50%', objectFit: 'cover' }} />
                                 <h3 style={{ fontFamily: `'Encode Sans SC', sans-serif` }}>{getUserDetails(friendList, currentUser).username}</h3>
                             </div>
                             <div className={styles.stringifiedMessages} ref={scrollRef}>
@@ -210,7 +211,7 @@ const Messages = () => {
                 </div>
             </div>
 
-        </div >
+        </div>
     );
 }
 
