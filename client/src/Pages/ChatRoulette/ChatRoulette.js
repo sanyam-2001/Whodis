@@ -224,23 +224,18 @@ const ChatRoulette = () => {
                 {messageGroup}
             </div>
             <div className={styles.footInput}>
-                <div className={styles.escapePanel}>
-                    <Button variant="contained" style={{ width: '100%', padding: '15px' }} onClick={handleEndNew}>{inChat ? "END" : "NEW"}</Button>
-                </div>
-                <div className={styles.textAreaPanel}>
-                    <TextField
-                        variant="outlined"
-                        placeholder="Your Message..."
-                        style={{ backgroundColor: '#E0E0E0', borderRadius: '4px' }}
-                        fullWidth
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        onKeyPress={(e) => { if (e.key === "Enter") sendMessage() }}
-                    />
-                </div>
-                <div className={styles.sendPanel}>
-                    <Button variant="contained" disabled={message ? false : true} style={{ width: '100%', padding: '15px' }} onClick={sendMessage} >Send</Button>
-                </div>
+
+                <Button className={styles.startEnd} style={{ padding: '10px' }} variant="contained" onClick={handleEndNew}>{inChat ? "END" : "NEW"}</Button>
+                <TextField
+                    className={styles.textAreaPanel}
+                    placeholder="Your Message..."
+                    style={{ backgroundColor: '#E0E0E0', borderRadius: '4px', padding: '10px' }}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    onKeyPress={(e) => { if (e.key === "Enter") sendMessage() }}
+                />
+                <Button className={styles.startEnd} style={{ padding: '10px' }} variant="contained" disabled={message ? false : true} onClick={sendMessage} >Send</Button>
+
             </div>
         </div>
     );
