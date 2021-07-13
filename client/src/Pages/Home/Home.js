@@ -90,6 +90,7 @@ const Home = () => {
             <FriendPostContainer
                 friendList={friendList}
                 setFriendList={setFriendList}
+                dp={dp}
             />
 
 
