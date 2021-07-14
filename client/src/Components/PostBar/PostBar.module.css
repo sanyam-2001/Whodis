@@ -1,0 +1,24 @@
+.backdrop{
+    position:fixed;
+    top:0;
+    left:0;
+    height:100%;
+    width:100%;
+    background-color:rgba(255, 255, 255, 0.8);
+    z-index: 10;
+}
+.prompt{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    width:70vh;
+    max-height: 70vh;
+    background-color: white;
+    box-shadow:3px 3px 10px 10px rgba(0, 0, 0, 0.103);
+    border-radius: 10px;
+}
+.header{
+    padding:16px;
+    text-align:center;
+}
