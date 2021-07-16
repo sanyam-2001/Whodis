@@ -133,7 +133,7 @@
     margin: 0;
     place-items: center;
     font-family: 'Source Sans Pro', sans-serif;
-    width:45%
+    width:45%;
 }
 .leaderboard {
     box-shadow: 0 0 40px -10px rgba(0, 0, 0, .4);

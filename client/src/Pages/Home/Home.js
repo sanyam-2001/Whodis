@@ -92,7 +92,6 @@ const Home = () => {
                 setFriendList={setFriendList}
                 dp={dp}
                 name={`${user.firstName} ${user.lastName}`}
-
             />
 
 

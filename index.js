@@ -9,6 +9,7 @@ const userRoute = require('./Routes/userRoutes');
 const coverRoute = require('./Routes/coverRoutes');
 const friendRoute = require('./Routes/friendRoutes')
 const dpRoute = require('./Routes/dpRoute');
+const postRoutes = require('./Routes/postRoutes')
 const path = require('path');
 const messagingRoutes = require('./Routes/messagingRoutes')
 // SOCKET IMPORTS
@@ -89,6 +90,7 @@ app.use('/', coverRoute);
 app.use('/', dpRoute);
 app.use('/', friendRoute);
 app.use('/', messagingRoutes);
+app.use('/', postRoutes);
 
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 
