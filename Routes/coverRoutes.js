@@ -41,6 +41,19 @@ router.get('/coverImage', AuthJWT, (req, res) => {
         }
     })
 });
+router.get('/coverImage/:id', (req, res) => {
+    coverModel.findOne({ userID: req.params.id }, (err, coverImage) => {
+        if (err) {
+            res.json({ code: 500, errCode: 500, message: 'Server Error!' });
+            return console.error(err);
+        }
+        if (!coverImage) { res.json({ src: null }) }
+        else {
+            let src = `data:${coverImage.img.contentType};base64,${coverImage.img.data.toString('base64')}`;
+            res.json({ src, isCenter: coverImage.isCenter })
+        }
+    })
+})
 router.get('/changeCoverPosition', AuthJWT, (req, res) => {
     coverModel.findOne({ userID: req.user.id }, (err, coverImage) => {
         if (err) {

@@ -6,7 +6,7 @@ const FriendPostContainer = (props) => {
     return (
         <div className={styles.container}>
             <FriendPanel friendList={props.friendList} setFriendList={props.setFriendList} />
-            <CreatePost dp={props.dp} name={props.name} />
+            <CreatePost dp={props.dp} name={props.name} setPosts={props.setPosts} />
         </div>
     );
 }

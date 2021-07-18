@@ -1,0 +1,29 @@
+.backdropLeft{
+    position:fixed;
+    top:0;
+    left:-100%;
+    height:100vh;
+    width:50%;
+    background-color:rgba(0, 0, 0, 0.6);;
+    z-index: 10;
+
+}
+.backdropRight{
+    position:fixed;
+    top:0;
+    left:200%;
+    height:100vh;
+    width:50%;
+    background-color:rgba(0, 0, 0, 0.6);
+    z-index: 10;
+}
+.main{
+    position:fixed;
+    left:50%;
+    top:50%;
+    width:35%;
+    z-index: 11;
+    background-color: whitesmoke;
+    padding:6px;
+
+}

@@ -9,7 +9,7 @@ import PhotoSizeSelectLargeIcon from '@material-ui/icons/PhotoSizeSelectLarge';
 import JWTGET from '../../../Requests/Gets';
 import { Button } from '@material-ui/core';
 import { ToastContainer, toast } from 'react-toastify';
-
+import defaultCover from '../../../defaultCover.jpg'
 
 const Hero = (props) => {
     const [areButtonsVisible, setButtonsVisible] = useState('none');
@@ -51,12 +51,10 @@ const Hero = (props) => {
             });
     }
 
-
-
     return (
-        <div className={styles.heroContainer} style={{ height: '60vh', backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.4)), url(${props.backgroundImage})`, backgroundPosition: props.isCenter ? 'center' : '0% 0%' }}>
+        <div className={styles.heroContainer} style={{ height: '60vh', backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8),rgba(0, 0, 0, 0.4)), url(${props.backgroundImage || defaultCover})`, backgroundPosition: props.isCenter ? 'center' : '0% 0%' }}>
             <ToastContainer />
-            <Header profileImage={props.profileImage} setDrawerOpen={props.setDrawerOpen} />
+            <Header profileImage={props.profileImage} setDrawerOpen={props.setDrawerOpen} notification={props.notification} />
             {/* Information START*/}
             <div style={{ color: "white" }} className={styles.info}>
                 <h1>{props.name}</h1>

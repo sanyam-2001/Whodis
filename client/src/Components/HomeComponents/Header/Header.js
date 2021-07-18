@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,10 +11,10 @@ import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-
+import Addfriend from '../../Addfriend/Addfriend';
+import { toast, ToastContainer } from 'react-toastify'
 const useStyles = makeStyles((theme) => ({
     grow: {
         flexGrow: 1,
@@ -83,10 +83,13 @@ function Header(props) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+    const [value, setValue] = useState('');
+    const [open, setOpen] = useState(false);
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-
+    const [name, setName] = useState('');
+    const [dp, setDp] = useState('');
+    const [cover, setCover] = useState('');
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -132,16 +135,8 @@ function Header(props) {
             onClose={handleMobileMenuClose}
         >
             <MenuItem>
-                <IconButton aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="secondary">
-                        <MailIcon />
-                    </Badge>
-                </IconButton>
-                <p>Messages</p>
-            </MenuItem>
-            <MenuItem>
                 <IconButton aria-label="show 11 new notifications" color="inherit">
-                    <Badge badgeContent={11} color="secondary">
+                    <Badge badgeContent={props.notification} color="secondary">
                         <NotificationsIcon />
                     </Badge>
                 </IconButton>
@@ -160,9 +155,27 @@ function Header(props) {
             </MenuItem>
         </Menu>
     );
+    const fetchSearchUser = async (e) => {
+        if (e.key === "Enter") {
+            if (!value || value.length !== 24) return toast('User Not Found!');
+            const dp = await fetch(`/getDp/${value}`);
+            const cover = await fetch(`/coverImage/${value}`);
+            const name = await fetch(`/getUsername/${value}`);
+            const dpJson = await dp.json();
+            const coverJson = await cover.json();
+            const nameJson = await name.json();
+            if (nameJson.status === 500) return toast('User Not Found!');
+            setDp(dpJson.src);
+            setCover(coverJson.src);
+            setName(nameJson.name);
+            setOpen(true)
 
+        }
+
+    }
     return (
         <div className={classes.grow} >
+            <ToastContainer />
             <AppBar position="static" style={{ backgroundColor: 'rgba(0, 0, 0, 0)', boxShadow: 'none' }}>
                 <Toolbar>
                     <IconButton
@@ -188,17 +201,15 @@ function Header(props) {
                                 input: classes.inputInput,
                             }}
                             inputProps={{ 'aria-label': 'search' }}
+                            value={value}
+                            onChange={(e) => setValue(e.target.value)}
+                            onKeyDown={(e) => fetchSearchUser(e)}
                         />
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
                         <IconButton color="inherit">
-                            <Badge badgeContent={0} color="secondary">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton color="inherit">
-                            <Badge badgeContent={0} color="secondary">
+                            <Badge badgeContent={props.notification} color="secondary">
                                 <NotificationsIcon />
                             </Badge>
                         </IconButton>
@@ -228,6 +239,7 @@ function Header(props) {
             </AppBar>
             {renderMobileMenu}
             {renderMenu}
+            <Addfriend open={open} setOpen={setOpen} value={value} dp={dp} cover={cover} name={name} id={value} />
         </div>
     );
 }

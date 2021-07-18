@@ -65,6 +65,7 @@ const PostBar = (props) => {
                 inputRef.current.value = ''
                 props.setOpen(false);
                 toast('Posted!');
+                props.setPosts((prev) => [...prev, result])
 
             })
             .catch(error => console.log('error', error));

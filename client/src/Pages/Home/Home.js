@@ -18,6 +18,7 @@ const Home = () => {
     const [friendList, setFriendList] = useState([]);
     const [updaterType, setUpdaterType] = useState([]);
     const [posts, setPosts] = useState([]);
+    const [notification, setNotification] = useState(0);
     useEffect(() => {
         JWTGET('/userDetails')
             .then(res => {
@@ -25,6 +26,7 @@ const Home = () => {
                 setUser(res);
                 setLocation(res.location)
                 setFriendList(res.friends)
+                setNotification(res.searchRequestsRecieved.length);
             });
         JWTGET('/coverImage')
             .then(res => {
@@ -73,6 +75,7 @@ const Home = () => {
                 setDrawerOpen={setDrawerOpen}
                 isCenter={isCenter}
                 setisCenter={setisCenter}
+                notification={notification}
             />
             <ProfilePanel
                 profileImage={dp}
@@ -97,12 +100,17 @@ const Home = () => {
                 setFriendList={setFriendList}
                 dp={dp}
                 name={`${user.firstName} ${user.lastName}`}
+                setPosts={setPosts}
             />
             <PostPanel
                 posts={posts}
                 setPosts={setPosts}
             />
-
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div style={{ height: '2px', flex: 1, backgroundColor: 'black' }}></div>
+                <div style={{ padding: '2em', fontSize: '32px', fontFamily: 'monospace' }}>End Of Wall</div>
+                <div style={{ height: '2px', flex: 1, backgroundColor: 'black' }}></div>
+            </div>
         </div>
     );
 }

@@ -7,7 +7,7 @@ const CreatePost = (props) => {
 
     return (
         <div className={styles.mainContainer}>
-            <PostBar open={open} setOpen={setOpen} dp={props.dp} name={props.name} />
+            <PostBar open={open} setOpen={setOpen} dp={props.dp} name={props.name} setPosts={props.setPosts} />
             <div className={styles.postBox}>
                 <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
                     <img src={props.dp || defaultImage} alt={'DP'} height="35" width="35" className={styles.image} />

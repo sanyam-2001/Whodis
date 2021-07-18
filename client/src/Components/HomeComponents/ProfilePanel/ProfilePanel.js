@@ -5,6 +5,7 @@ import PublishIcon from '@material-ui/icons/Publish';
 import CheckIcon from '@material-ui/icons/Check';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { ToastContainer, toast } from 'react-toastify';
+import defaultImage from '../../../default.jpg'
 const ProfilePanel = (props) => {
     const [previewProfileImage, setPreviewProfileImage] = useState('');
     let inputRef = useRef(null);

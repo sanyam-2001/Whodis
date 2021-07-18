@@ -30,6 +30,7 @@ router.get('/getUsername/:id', (req, res) => {
             res.json({ code: 500, errCode: 500, message: "Server Error!" });
             return console.error(err);
         }
+        if (!obj) return res.json({ status: 500 });
         else {
             res.json({ name: `${obj.firstName} ${obj.lastName}` })
         }
@@ -94,4 +95,5 @@ router.get('/updateAge/:value', AuthJWT, (req, res) => {
 router.get('/myUserID', AuthJWT, (req, res) => {
     res.json({ id: req.user.id })
 })
+
 module.exports = router;

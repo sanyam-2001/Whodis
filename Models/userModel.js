@@ -16,7 +16,9 @@ const userSchema = mongoose.Schema({
     about: { type: String },
     friends: { type: [String] },
     requestsRecieved: { type: Number },
-    requestsSent: { type: Number }
+    requestsSent: { type: Number },
+    searchRequestsSent: { type: [String] },
+    searchRequestsRecieved: { type: [String] }
 });
 
 const userModel = new mongoose.model('userModel', userSchema);

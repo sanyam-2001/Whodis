@@ -82,7 +82,9 @@ const Signup = () => {
             about: 'Tell People Something about Yourself. \n Hobbies, Interests or a Pretentious Quote... \n Noone Would Judge ;)',
             friends: [],
             requestsRecieved: 0,
-            requestsSent: 0
+            requestsSent: 0,
+            searchRequestsSent: [],
+            searchRequestsRecieved: []
         }
         const token = await POST('/signup', payload);
         if (token.JWTTOKEN) {
