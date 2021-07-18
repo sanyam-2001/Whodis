@@ -8,7 +8,6 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { TextField } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
 import { toast, ToastContainer } from 'react-toastify';
-import { gsap } from 'gsap'
 const TextArea = withStyles({
     root: {
 

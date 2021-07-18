@@ -60,6 +60,25 @@ router.get('/posts', AuthJWT, (req, res) => {
             res.json(response)
         }
     })
+});
+
+router.get('/likePost/:ID', AuthJWT, (req, res) => {
+    postModel.findByIdAndUpdate(req.params.ID, { "$push": { likes: req.user.id } }, { new: true }, (err, post) => {
+        if (err) {
+            res.json({ code: 500, errCode: 500, message: 'Server Error!' });
+            return console.error(err);
+        }
+        else res.json(post)
+    })
+})
+router.get('/unlikePost/:ID', AuthJWT, (req, res) => {
+    postModel.findByIdAndUpdate(req.params.ID, { "$pull": { likes: req.user.id } }, { new: true }, (err, post) => {
+        if (err) {
+            res.json({ code: 500, errCode: 500, message: 'Server Error!' });
+            return console.error(err);
+        }
+        else res.json(post)
+    })
 })
 
 

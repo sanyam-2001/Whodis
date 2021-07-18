@@ -13,6 +13,17 @@ router.get('/userDetails', AuthJWT, (req, res) => {
         }
     });
 });
+router.get('/getUser/:userID', (req, res) => {
+    userModel.findById(req.params.userID, (err, obj) => {
+        if (err) {
+            res.json({ code: 500, errCode: 500, message: "Server Error!" });
+            return console.error(err);
+        }
+        else {
+            res.json(obj)
+        }
+    });
+})
 router.get('/getUsername/:id', (req, res) => {
     userModel.findById(req.params.id, (err, obj) => {
         if (err) {
@@ -80,4 +91,7 @@ router.get('/updateAge/:value', AuthJWT, (req, res) => {
         }
     });
 });
+router.get('/myUserID', AuthJWT, (req, res) => {
+    res.json({ id: req.user.id })
+})
 module.exports = router;

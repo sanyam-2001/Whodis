@@ -7,6 +7,7 @@ import Details from '../../Components/Details/Details';
 import Updater from '../../Components/UpdateComponent/Updater';
 import { Redirect } from 'react-router-dom'
 import FriendPostContainer from '../../Components/FriendPostContainer/FriendPostContainer'
+import PostPanel from '../../Components/HomeComponents/PostPanel/PostPanel';
 const Home = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [user, setUser] = useState({})
@@ -16,7 +17,7 @@ const Home = () => {
     const [isCenter, setisCenter] = useState(true);
     const [friendList, setFriendList] = useState([]);
     const [updaterType, setUpdaterType] = useState([]);
-
+    const [posts, setPosts] = useState([]);
     useEffect(() => {
         JWTGET('/userDetails')
             .then(res => {
@@ -43,13 +44,17 @@ const Home = () => {
                     setDp(res.src)
                 }
             })
+        JWTGET('/posts')
+            .then(res => {
+                setPosts(res)
+            })
 
     }, []);
     if (!localStorage.getItem('JWTTOKEN')) {
         return <Redirect to="/login" />
     }
     return (
-        <div>
+        <div style={{ backgroundColor: 'rgb(240,242,245)' }}>
             <Drawer
                 drawerOpen={drawerOpen}
                 setDrawerOpen={setDrawerOpen}
@@ -93,7 +98,10 @@ const Home = () => {
                 dp={dp}
                 name={`${user.firstName} ${user.lastName}`}
             />
-
+            <PostPanel
+                posts={posts}
+                setPosts={setPosts}
+            />
 
         </div>
     );
