@@ -41,7 +41,6 @@ const Post = (props) => {
         JWTGET(`/likePost/${props.id}`)
             .then(res => {
                 setLikes(prev => [...prev, myID])
-                console.log(res)
             })
     }
     const unlikePost = () => {
@@ -51,7 +50,6 @@ const Post = (props) => {
                     const deleted = prev.filter(e => e !== myID)
                     return deleted;
                 })
-                console.log(res)
             })
 
     }

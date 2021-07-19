@@ -70,11 +70,12 @@ function Drawer(props) {
                     <ListItemIcon><EqualizerIcon /></ListItemIcon>
                     <ListItemText primary={"Feed"} />
                 </ListItem>
-                <ListItem button className={styles.afterHover}>
-                    <ListItemIcon><NotificationsIcon /></ListItemIcon>
-                    <ListItemText primary={"Notifications"} />
-                </ListItem>
-
+                <Link to="/notification" style={{ textDecoration: 'none', color: 'black' }}>
+                    <ListItem button className={styles.afterHover}>
+                        <ListItemIcon><NotificationsIcon /></ListItemIcon>
+                        <ListItemText primary={"Notifications"} />
+                    </ListItem>
+                </Link>
             </List>
             <Divider />
             <List>

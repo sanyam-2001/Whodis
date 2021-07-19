@@ -12,13 +12,13 @@ const dpRoute = require('./Routes/dpRoute');
 const postRoutes = require('./Routes/postRoutes')
 const path = require('path');
 const messagingRoutes = require('./Routes/messagingRoutes')
+const notificationRoutes = require('./Routes/notificationRoutes')
 // SOCKET IMPORTS
 const findNewChatRoulette = require('./Socket/CRSocket/findNewChatRoulette');
 const destroyRoom = require('./Socket/CRSocket/destroyRoom');
 const acceptRequest = require('./Socket/CRSocket/acceptRequest');
 const handleLeave = require('./Socket/CRSocket/handleLeave');
 const sendMessage = require('./Socket/MSocket/sendMessage')
-
 mongoose.connect(process.env.DBURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false }, () => {
     console.log("Connected to Whodis DB!")
 });
@@ -91,6 +91,7 @@ app.use('/', dpRoute);
 app.use('/', friendRoute);
 app.use('/', messagingRoutes);
 app.use('/', postRoutes);
+app.use('/', notificationRoutes);
 
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 
