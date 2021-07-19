@@ -81,6 +81,30 @@ router.get('/unlikePost/:ID', AuthJWT, (req, res) => {
     })
 })
 
+router.get('/getPosts/:id', (req, res) => {
+    postModel.find({ userID: req.params.id }, (err, posts) => {
+        if (err) {
+            res.json({ code: 500, errCode: 500, message: 'Server Error!' });
+            return console.error(err);
+        }
+        else {
+            const response = posts.map(post => {
+                const src = post.img.contentType ? `data:${post.img.contentType};base64,${post.img.data.toString('base64')}` : null;
+                return {
+                    id: post._id,
+                    userID: post.userID,
+                    img: src,
+                    caption: post.caption,
+                    timestamp: post.timestamp,
+                    comments: post.comments,
+                    likes: post.likes
+                }
+            })
+            res.json(response)
+        }
+    })
+})
+
 
 
 module.exports = router;
