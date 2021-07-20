@@ -56,7 +56,9 @@
     justify-content: center;
     align-items: center;
 }
-
+.display{
+    display:none
+}
 @media only screen and (max-width: 900px){
     .imagePane{
         display:none
@@ -66,5 +68,8 @@
     }
     .peak{
         display:none
+    }
+    .display{
+        display:block;
     }
 }

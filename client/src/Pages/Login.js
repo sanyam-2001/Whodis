@@ -130,6 +130,16 @@ const Login = () => {
                         />
 
                     </div>
+                    <div className={styles.display} style={{ position: 'absolute', bottom: '5%', left: '5%' }}>
+                        <Link to="/">
+                            <Button
+                                variant="contained"
+                                color="primary"
+                            >
+                                SIGNUP
+                            </Button>
+                        </Link>
+                    </div>
                     <div style={{ position: 'absolute', bottom: '5%', right: '5%' }}>
                         <Button
                             variant="contained"

@@ -224,6 +224,16 @@ const Signup = () => {
                         />
 
                     </div>
+                    <div className={styles.display} style={{ position: 'absolute', bottom: '5%', left: '5%' }}>
+                        <Link to="/login">
+                            <Button
+                                variant="contained"
+                                color="primary"
+                            >
+                                Login
+                            </Button>
+                        </Link>
+                    </div>
                     <div style={{ position: 'absolute', bottom: '5%', right: '5%' }}>
                         <Button
                             variant="contained"
