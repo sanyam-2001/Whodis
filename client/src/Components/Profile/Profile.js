@@ -58,15 +58,16 @@ const Profile = (props) => {
             <div className={styles.profile} style={{ overflow: 'hidden scroll' }} onClick={(e) => e.stopPropagation()}>
                 <div style={{ backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${cover || defaultCover})`, height: '30vh', backgroundSize: 'cover' }}></div>
                 <img src={dp || defaultImg} alt="DP" height="70" width="70" style={{ position: 'absolute', right: '5%', transform: 'translateY(-50%)', objectFit: 'cover', borderRadius: '50%' }} />
-                <div style={{ marginTop: '45px', fontFamily: 'monospace', fontSize: '40px', textAlign: 'center' }}>
+                <div className={styles.text} style={{ marginTop: '45px', fontFamily: 'monospace', textAlign: 'center' }}>
                     {user.relationshipStatus} - {user.gender}
                 </div>
                 {postComponent}
-                <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div className={styles.display} style={{ alignItems: 'center' }}>
                     <div style={{ height: '2px', flex: 1, backgroundColor: 'black' }}></div>
                     <div style={{ padding: '2em', fontSize: '32px', fontFamily: 'monospace' }}>End Of Wall</div>
                     <div style={{ height: '2px', flex: 1, backgroundColor: 'black' }}></div>
                 </div>
+                <hr style={{ marginTop: '20%' }} />
             </div>
 
         </div>

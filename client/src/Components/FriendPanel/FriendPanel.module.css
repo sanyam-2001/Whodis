@@ -153,4 +153,10 @@
         width:90%;
         margin:auto;
     }
+    .leaderboard__title{
+        display:none
+    }
+    .inputBar{
+        width:80%
+    }
 }

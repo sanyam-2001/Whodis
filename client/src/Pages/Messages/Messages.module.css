@@ -93,3 +93,15 @@
 .stringifiedMessages::-webkit-scrollbar{
     display:none
 }
+@media only screen and (max-width: 900px){
+    .mainContainer{
+        width:100%
+    }
+    .contactContainer{
+        flex:0;
+    }
+    .chatBox{
+        flex:6;
+    }
+    
+}

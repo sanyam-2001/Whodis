@@ -17,8 +17,21 @@
     left:50%;
     transform:translate(-50%, -50%);
 }
+.text{
+    font-size: 40px;
+}
+.display{
+    display: flex
+}
 @media only screen and (max-width: 800px){
     .profile{
         width:95%;
     }
+    .text{
+        font-size:24px;
+    }
+    .display{
+        display: none
+    }
+
 }

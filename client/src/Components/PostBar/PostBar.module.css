@@ -12,7 +12,7 @@
     top:50%;
     left:50%;
     transform:translate(-50%, -50%);
-    width:70vh;
+    width:35%;
     background-color: white;
     box-shadow:3px 3px 10px 10px rgba(0, 0, 0, 0.103);
     border-radius: 10px;
@@ -23,4 +23,9 @@
 }
 .scrollbar::-webkit-scrollbar{
     display:none
+}
+@media only screen and (max-width: 1200px){
+    .prompt{
+        width:90%;
+    }
 }

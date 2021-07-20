@@ -25,9 +25,9 @@ const Updater = (props) => {
     }
     const close = () => {
         let tl = new TimelineLite({ paused: true });
-        tl.to(firstRef, { left: '-100%', duration: 1, });
-        tl.to(secondRef, { left: '-100%', duration: 1, delay: '-0.5' });
-        tl.to(thirdRef, { left: '-100%', duration: 1, delay: '-0.5' });
+        tl.to(firstRef, { left: '-150%', duration: 1, });
+        tl.to(secondRef, { left: '-150%', duration: 1, delay: '-0.5' });
+        tl.to(thirdRef, { left: '-150%', duration: 1, delay: '-0.5' });
         tl.play();
     }
 
@@ -77,10 +77,10 @@ const Updater = (props) => {
     return (
         <div>
             <ToastContainer />
-            <div ref={(e) => firstRef = e} className={styles.heading} style={{ position: 'fixed', width: '100%', top: 0, height: '33.34%', backgroundColor: 'black', zIndex: 15, color: 'white', left: '-100%' }}>
+            <div ref={(e) => firstRef = e} className={styles.heading} style={{ position: 'fixed', width: '100%', top: 0, height: '33.34%', backgroundColor: 'black', zIndex: 15, color: 'white', left: '-150%' }}>
                 <h1>UPDATE RELATIONSHIP STATUS</h1>
             </div>
-            <div ref={(e) => secondRef = e} style={{ position: 'fixed', width: '100%', top: '33.34%', height: '33.34%', backgroundColor: 'black', zIndex: 15, left: '-100%', display: 'flex', alignItems: 'center' }}>
+            <div ref={(e) => secondRef = e} style={{ position: 'fixed', width: '100%', top: '33.34%', height: '33.34%', backgroundColor: 'black', zIndex: 15, left: '-150%', display: 'flex', alignItems: 'center' }}>
                 {props.type === 'GENDER' ?
                     <div style={{ width: '50%', marginLeft: '5%', backgroundColor: 'white', color: 'black', padding: '20px' }} >
                         <InputLabel id="iplabel1" style={{ fontSize: '12px', marginLeft: '10px' }}>Gender</InputLabel>
@@ -137,7 +137,7 @@ const Updater = (props) => {
                 }
 
             </div>
-            <div ref={(e) => thirdRef = e} className={styles.heading} style={{ position: 'fixed', width: '100%', top: '66.67%', height: '33.34%', backgroundColor: 'black', zIndex: 15, left: '-100%' }}>
+            <div ref={(e) => thirdRef = e} className={styles.heading} style={{ position: 'fixed', width: '100%', top: '66.67%', height: '33.34%', backgroundColor: 'black', zIndex: 15, left: '-150%' }}>
                 <Button onClick={handleUpdate} variant="contained" color="primary" style={{ padding: '10px', width: '25%', position: 'absolute', right: '5%' }}>
                     Update
                 </Button>

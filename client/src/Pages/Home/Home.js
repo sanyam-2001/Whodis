@@ -107,10 +107,10 @@ const Home = () => {
                 posts={posts}
                 setPosts={setPosts}
             />
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-                <div style={{ height: '2px', flex: 1, backgroundColor: 'black' }}></div>
-                <div style={{ padding: '2em', fontSize: '32px', fontFamily: 'monospace' }}>End Of Wall</div>
-                <div style={{ height: '2px', flex: 1, backgroundColor: 'black' }}></div>
+            <div style={{ textAlign: 'center' }}>
+                <hr />
+                <div style={{ fontSize: '32px', padding: '20px', fontFamily: 'monospace' }}>End Of Wall</div>
+                <hr />
             </div>
         </div>
     );

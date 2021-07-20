@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import { toast, ToastContainer, TOastContainer } from 'react-toastify'
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
@@ -16,6 +17,9 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Redirect, Link } from 'react-router-dom'
+import { Button } from '@material-ui/core';
+import JWTGET from './../../../Requests/Gets';
+
 const useStyles = makeStyles({
     list: {
         width: 280,
@@ -27,8 +31,23 @@ const useStyles = makeStyles({
 
 function Drawer(props) {
     const classes = useStyles();
-    const [signedOut, setSignedOut] = useState(localStorage.getItem('JWTTOKEN'))
-
+    const [signedOut, setSignedOut] = useState(localStorage.getItem('JWTTOKEN'));
+    const [id, setId] = useState('');
+    useEffect(() => {
+        JWTGET(`/myUserID`)
+            .then(res => {
+                setId(res.id);
+            })
+    }, [])
+    const copyCode = () => {
+        if (id) {
+            copyToClipboard();
+            toast('Share the Code With Your Friends!')
+        }
+    }
+    function copyToClipboard() {
+        navigator.clipboard.writeText(id)
+    }
     const list = (anchor) => (
         <div
             className={clsx(classes.list, {
@@ -92,6 +111,12 @@ function Drawer(props) {
                     <ListItemIcon><ExitToAppIcon /></ListItemIcon>
                     <ListItemText primary={"Sign Out"} />
                 </ListItem>
+                <Divider />
+                <div style={{ width: '90%', margin: 'auto', marginTop: '2.5%' }}>
+                    <Button style={{ width: '100%' }} onClick={copyCode}>
+                        {id}
+                    </Button>
+                </div>
 
             </List>
         </div >
@@ -102,7 +127,7 @@ function Drawer(props) {
     }
     return (
         <div>
-
+            <ToastContainer />
             <React.Fragment>
                 <SwipeableDrawer
                     anchor={"left"}
