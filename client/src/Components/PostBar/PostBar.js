@@ -8,6 +8,8 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { TextField } from '@material-ui/core'
 import { withStyles } from '@material-ui/core/styles';
 import { toast, ToastContainer } from 'react-toastify';
+import Backdrop from './../../Components/Backdrop/Backdrop';
+
 const TextArea = withStyles({
     root: {
 
@@ -36,8 +38,11 @@ const TextArea = withStyles({
 const PostBar = (props) => {
     const [caption, setCaption] = useState('');
     const [image, setImage] = useState([]);
+    const [loading, setLoading] = useState(false);
     const inputRef = useRef(null);
+
     const attemptPost = () => {
+        setLoading(true);
         var myHeaders = new Headers();
         myHeaders.append("Authorization", `BEARER ${localStorage.getItem('JWTTOKEN')}`);
 
@@ -60,6 +65,7 @@ const PostBar = (props) => {
         fetch("/createPost", requestOptions)
             .then(response => response.json())
             .then(result => {
+                setLoading(false)
                 console.log(result);
                 setCaption('');
                 inputRef.current.value = ''
@@ -68,11 +74,12 @@ const PostBar = (props) => {
                 props.setPosts((prev) => [...prev, result])
 
             })
-            .catch(error => console.log('error', error));
+            .catch(error => { console.log('error', error); setLoading(false) });
     }
     return (
         <div className={styles.backdrop} style={{ display: props.open ? 'block' : 'none' }}>
             <ToastContainer />
+            <Backdrop open={loading} />
             <div className={styles.prompt}>
                 <div className={styles.header}>
                     <h2 style={{ fontFamily: 'helvetica' }}>Create Post</h2>

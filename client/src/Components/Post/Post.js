@@ -6,6 +6,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ChatIcon from '@material-ui/icons/Chat';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import JWTGET from './../../Requests/Gets';
+import Backdrop from './../Backdrop/Backdrop';
+
 const Post = (props) => {
     const timestamp = parseInt(props.timestamp);
     const [likes, setLikes] = useState(props.likes);
@@ -19,7 +21,7 @@ const Post = (props) => {
     });
     const [dp, setDp] = useState(null);
     const [myID, setMyID] = useState(null);
-
+    const [loading, setLoading] = useState(false);
     useEffect(() => {
         fetch(`/getDp/${props.userID}`)
             .then(res => res.json())
@@ -38,23 +40,29 @@ const Post = (props) => {
             })
     }, [props.userID]);
     const likePost = () => {
+        setLoading(true);
         JWTGET(`/likePost/${props.id}`)
             .then(res => {
                 setLikes(prev => [...prev, myID])
+                setLoading(false);
             })
     }
     const unlikePost = () => {
+        setLoading(true);
         JWTGET(`/unlikePost/${props.id}`)
             .then(res => {
                 setLikes(prev => {
                     const deleted = prev.filter(e => e !== myID)
                     return deleted;
                 })
+                setLoading(false);
+
             })
 
     }
     return (
         <div style={{ justifyContent: 'space-between', display: 'flex' }}>
+            <Backdrop open={loading} />
             <div className={styles.aesthetic} style={{ width: '40%', padding: '1%', borderRadius: '16px', marginTop: '2.5%', marginBottom: '2.5%' }}>
 
             </div>

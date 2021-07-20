@@ -8,6 +8,7 @@ import Updater from '../../Components/UpdateComponent/Updater';
 import { Redirect } from 'react-router-dom'
 import FriendPostContainer from '../../Components/FriendPostContainer/FriendPostContainer'
 import PostPanel from '../../Components/HomeComponents/PostPanel/PostPanel';
+
 const Home = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [user, setUser] = useState({})
