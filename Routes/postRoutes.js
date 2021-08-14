@@ -3,8 +3,10 @@ const router = express.Router();
 const fs = require('fs');
 const path = require('path');
 const postModel = require('../Models/postModel');
+const usermodel = require('../Models/userModel');
 const uploads = require('../Middlewares/multerInit');
 const AuthJWT = require('../Middlewares/AuthJWT');
+const userModel = require('../Models/userModel');
 
 router.post('/createPost', AuthJWT, uploads.single('img'), (req, res) => {
     const newPost = new postModel({
@@ -104,6 +106,28 @@ router.get('/getPosts/:id', (req, res) => {
         }
     })
 })
+
+router.get('/getFeedPosts/:prevCount',AuthJWT,  async (req, res) => {
+    console.log(req.params.prevCount);
+    const {friends} = await userModel.findById(req.user.id);
+    friends.push(req.user.id)
+    const posts = await postModel.find({
+        'userID': { $in: friends}
+    }).sort({'_id': -1}).limit(2).skip(parseInt(req.params.prevCount));
+    const response = posts.map(post => {
+        const src = post.img.contentType ? `data:${post.img.contentType};base64,${post.img.data.toString('base64')}` : null;
+        return {
+            id: post._id,
+            userID: post.userID,
+            img: src,
+            caption: post.caption,
+            timestamp: post.timestamp,
+            comments: post.comments,
+            likes: post.likes
+        }
+    })
+    res.json({posts:response, skipCount:req.params.prevCount});
+});
 
 
 

@@ -6,6 +6,7 @@ import Home from './Pages/Home/Home'
 import ChatRoulette from './Pages/ChatRoulette/ChatRoulette';
 import Messages from './Pages/Messages/Messages';
 import Notification from './Pages/Notification/Notification';
+import Feeds from './Pages/Feed/Feed';
 function App() {
   return (
     <div className="App">
@@ -17,6 +18,7 @@ function App() {
           <Route path="/chatRoulette" exact component={ChatRoulette} />
           <Route path="/messaging" exact component={Messages} />
           <Route path="/notification" exact component={Notification} />
+          <Route path="/feed" exact component={Feeds} />
         </Switch>
       </Router>
     </div>

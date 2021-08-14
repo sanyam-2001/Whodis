@@ -20,6 +20,7 @@ const Home = () => {
     const [updaterType, setUpdaterType] = useState([]);
     const [posts, setPosts] = useState([]);
     const [notification, setNotification] = useState(0);
+    const [loading ,setLoading] = useState(true);
     useEffect(() => {
         JWTGET('/userDetails')
             .then(res => {
@@ -49,7 +50,8 @@ const Home = () => {
             })
         JWTGET('/posts')
             .then(res => {
-                setPosts(res)
+                setPosts(res);
+                setLoading(false);
             })
 
     }, []);
@@ -106,6 +108,7 @@ const Home = () => {
             <PostPanel
                 posts={posts}
                 setPosts={setPosts}
+                loading={loading}
             />
             <div style={{ textAlign: 'center' }}>
                 <hr />

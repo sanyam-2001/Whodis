@@ -1,0 +1,14 @@
+.progress{
+    width: 40%;
+    margin-left:60%;
+    text-align:center;
+
+}
+@media only screen and (max-width:786px){
+    .progress{
+        width: 100%;
+        margin-left:0;
+        text-align:center;
+    
+    }
+}

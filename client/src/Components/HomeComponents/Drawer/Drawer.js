@@ -85,10 +85,12 @@ function Drawer(props) {
                         <ListItemText primary={"Messages"} />
                     </ListItem>
                 </Link>
+                <Link to="/feed" style={{ textDecoration: 'none', color: 'black' }}>
                 <ListItem button className={styles.afterHover}>
                     <ListItemIcon><EqualizerIcon /></ListItemIcon>
                     <ListItemText primary={"Feed"} />
                 </ListItem>
+                </Link>
                 <Link to="/notification" style={{ textDecoration: 'none', color: 'black' }}>
                     <ListItem button className={styles.afterHover}>
                         <ListItemIcon><NotificationsIcon /></ListItemIcon>
