@@ -7,11 +7,12 @@ import ChatIcon from '@material-ui/icons/Chat';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import JWTGET from './../../Requests/Gets';
 import Backdrop from './../Backdrop/Backdrop';
+import CommentPanel from '../CommentPanel/CommentPanel';
+
 
 const Post = (props) => {
     const timestamp = parseInt(props.timestamp);
     const [likes, setLikes] = useState(props.likes);
-    const [comments, setComments] = useState(props.comments);
     const [user, setUser] = useState({
         location: {
             country: "",
@@ -22,6 +23,7 @@ const Post = (props) => {
     const [dp, setDp] = useState(null);
     const [myID, setMyID] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [open, setOpen] = useState(false);
     useEffect(() => {
         fetch(`/getDp/${props.userID}`)
             .then(res => res.json())
@@ -61,12 +63,13 @@ const Post = (props) => {
 
     }
     return (
-        <div style={{ justifyContent: 'space-between', display: 'flex' }}>
+        <div style={{ justifyContent: 'space-between', display: 'flex'}}>
             <Backdrop open={loading} />
             <div className={styles.aesthetic} style={{ width: '40%', padding: '1%', borderRadius: '16px', marginTop: '2.5%', marginBottom: '2.5%' }}>
 
             </div>
             <div className={styles.postPanel} style={{ backgroundColor: 'white', boxShadow: '4px 4px 10px 10px rgba(0, 0, 0, 0.1)', padding: '1%', borderRadius: '16px', marginTop: '2.5%', marginBottom: '2.5%', display: props.img ? 'block' : 'flex', flexDirection: 'column' }}>
+                <CommentPanel comments={props.comments} open={open} setOpen={setOpen} dp={props.dp} postID = {props.id}/>
                 <div style={{ display: 'flex', width: '90%', margin: 'auto' }}>
                     <img src={dp || defaultImage} alt="DP" height="50" width="50" style={{ objectFit: 'cover', borderRadius: '50%' }} />
                     <div style={{ marginLeft: '20px', display: 'flex', flexDirection: 'column' }}>
@@ -89,13 +92,13 @@ const Post = (props) => {
                         {likes.length} {likes.length === 1 ? "Like" : "Likes"}
                     </div>
                     <div>
-                        {comments.length} {comments.length === 1 ? "Comment" : "Comments"}
+                        {props.comments.length} {props.comments.length === 1 ? "Comment" : "Comments"}
                     </div>
                 </div>
                 <hr style={{ width: '95%', margin: 'auto', border: '1px solid rgba(0, 0, 0, 0.1)', marginTop: '10px', marginBottom: '10px' }} />
                 <div style={{ display: 'flex', justifyContent: 'space-between', width: '90%', margin: 'auto' }}>
                     {likes.includes(myID) ? <FavoriteIcon style={{ color: 'red', cursor: 'pointer' }} onClick={unlikePost} /> : <FavoriteBorderIcon style={{ color: 'red', cursor: 'pointer' }} onClick={likePost} />}
-                    {<ChatIcon style={{ color: 'blue', cursor: 'pointer' }} />}
+                    {<ChatIcon style={{ color: 'blue', cursor: 'pointer' }} onClick={()=>setOpen(prev=>!prev)} />}
                 </div>
             </div>
         </div >

@@ -1,0 +1,71 @@
+.commentPanel {
+    box-sizing: border-box;
+    position: absolute;
+    height: 90%;
+    width: 95%;
+    margin: auto;
+    border-radius: 1em;
+    backdrop-filter: blur(2em) saturate(100%);
+    background-color: rgba(12, 40, 53, 0.6);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    padding: 1em;
+}
+
+.heading {
+    font-size: 2em;
+    font-family: Tahoma, sans-serif;
+    color: white;
+    border-bottom: 2px solid rgb(202, 202, 202);
+    width: 70%;
+    height: 10%;
+}
+
+.commentContainer {
+    position: absolute;
+    margin-top: 2.5%;
+    height: 70%;
+    width: 95%;
+}
+
+.inputBar {
+    position: absolute;
+    height: 10%;
+    bottom: 10px;
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.inputBar div {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex: 1;
+}
+
+.inputBar img {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+}
+
+.inputBar div input {
+    padding: 10px;
+    padding-left: 1em;
+    margin-left: 1em;
+    border-radius: 1em;
+    outline: none;
+    border: none;
+}
+.inputBar div button{
+    outline: none;
+    border: none;
+    padding:0.8em;
+    width:50%;
+    border-radius: 1em;
+    color:white;
+    background-color: rgb(55, 198, 255);
+    cursor: pointer;
+}

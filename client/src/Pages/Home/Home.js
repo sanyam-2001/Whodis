@@ -109,6 +109,7 @@ const Home = () => {
                 posts={posts}
                 setPosts={setPosts}
                 loading={loading}
+                dp={dp}
             />
             <div style={{ textAlign: 'center' }}>
                 <hr />
