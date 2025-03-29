@@ -82,6 +82,17 @@ app.get('/test', (req, res) => {
     res.json({ statusCode: 200 });
 })
 
+app.get('/wakeup', async (req, res) => {
+    try {
+        // Simple query to keep MongoDB connection active
+        await mongoose.connection.db.admin().ping();
+        console.log('Wakeup call received: MongoDB pinged successfully');
+        res.json({ status: 'ok', message: 'Database connection active' });
+    } catch (error) {
+        console.error('Wakeup call error:', error);
+        res.status(500).json({ status: 'error', message: 'Failed to ping database' });
+    }
+});
 
 app.use('/', signupRoute);
 app.use('/', loginRoute);
